@@ -24,10 +24,10 @@ class TestSolution(unittest.TestCase):
     def test_3_sample(self):
         self.assertEqual(solution([0]), 0)
 
-    # def test_4_sample(self):
-    #     self.assertEqual(solution([1, 1])  , 0)
+    def test_4_sample(self):
+        self.assertEqual(solution([1, 1, 0])  , 0)
 
-    # def test_3_sample(self):
-    #     self.assertEqual(solution([9, 8, 7, 5])  , 2)
+    def test_5_sample(self):
+        self.assertEqual(solution([5, 8, 7, 5])  , 1)
 
 unittest.main(argv=['first-arg-is-ignored'], exit=False)

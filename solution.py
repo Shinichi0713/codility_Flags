@@ -1,10 +1,72 @@
-# max flagsの計算
+
 def solution(A):
+    # Find all the peaks
+    peaks = []
+    for i in range(1, len(A) - 1):
+        if A[i] > A[i - 1] and A[i] > A[i + 1]:
+            peaks.append(i)
+    
+    if len(peaks) == 0:
+        return 0
+    
+    # Binary search for the maximum number of flags
+    def can_place_flags(peaks, k):
+        count = 1
+        last_flag = peaks[0]
+        for i in range(1, len(peaks)):
+            if peaks[i] - last_flag >= k:
+                count += 1
+                last_flag = peaks[i]
+                if count == k:
+                    return True
+        return False
+    
+    left, right = 1, len(peaks)
+    max_flags = 0
+    while left <= right:
+        mid = (left + right) // 2
+        if can_place_flags(peaks, mid):
+            max_flags = mid
+            left = mid + 1
+        else:
+            right = mid - 1
+    
+    return max_flags
+
+
+def solution_old3(A):
+    # Find all the peaks
+    peaks = []
+    for i in range(1, len(A) - 1):
+        if A[i] > A[i - 1] and A[i] > A[i + 1]:
+            peaks.append(i)
+    
+    if len(peaks) == 0:
+        return 0
+    
+    # Try to place the maximum number of flags
+    max_flags = 0
+    for k in range(1, len(peaks) + 1):
+        flags = 1
+        last_flag = peaks[0]
+        for i in range(1, len(peaks)):
+            if peaks[i] - last_flag >= k:
+                flags += 1
+                last_flag = peaks[i]
+                if flags == k:
+                    break
+        flags = min(flags, k)
+        max_flags = max(max_flags, flags)
+    
+    return max_flags
+
+# max flagsの計算
+def solution_old1(A):
     N = len(A)
     peaks = []
     distance_between = []
     for i in range(1, N-1):
-        if A[i] >= A[i - 1] and A[i] >= A[i+1]:
+        if A[i] > A[i - 1] and A[i] > A[i+1]:
             peaks.append(i)
     for i in range(1, len(peaks)):
         distance_between.append(peaks[i] - peaks[i-1])
@@ -26,7 +88,7 @@ def solution(A):
             if i == 1:
                 flags = 1
                 break
-    return count_peak
+    return len(peaks)
 
 # 距離の調整を行う
 def calculate_redistance(peaks, distance_between, distance_restrict):
@@ -43,7 +105,7 @@ def calculate_redistance(peaks, distance_between, distance_restrict):
             distance_between_rearranged.append(peaks[i] - peaks[i-1])
     return peaks_rearranged, distance_between_rearranged
 
-def solution_old(A):
+def solution_old2(A):
     N = len(A)
     peaks = [0] * (N + 1)
     for i in range(1, N):
@@ -76,5 +138,5 @@ if __name__ == '__main__':
     A[9] = 4
     A[10] = 6
     A[11] = 2
-    # A = [0,1]
+    # A = [0,1,1]
     print(solution(A))
