@@ -39,3 +39,8 @@
 制約条件：
 ・Nは整数
 ・どの配列の要素も0～1,000,000,000
+
+
+# 結果
+
+![image](https://github.com/user-attachments/assets/a6cef76b-9e91-4a2b-a043-7438b5c40d39)
