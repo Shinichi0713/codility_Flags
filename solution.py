@@ -6,9 +6,14 @@ def solution(A):
         if A[i] > A[i - 1] and A[i] > A[i + 1]:
             peaks.append(i)
     
-    if len(peaks) == 0:
-        return 0
-    
+    if len(peaks) <= 1:
+        return len(peaks)
+    if len(peaks) == 2:
+        if peaks[1] - peaks[0] >= 2:
+            return 2
+        else:
+            return 1
+
     # Binary search for the maximum number of flags
     def can_place_flags(peaks, k):
         count = 1
@@ -125,18 +130,18 @@ def solution_old2(A):
     return peaks[N]
 
 if __name__ == '__main__':
-    A=[0 for _ in range(12)]
-    A[0] = 1
-    A[1] = 5
-    A[2] = 3
-    A[3] = 4
-    A[4] = 3
-    A[5] = 4
-    A[6] = 1
-    A[7] = 2
-    A[8] = 3
-    A[9] = 4
-    A[10] = 6
-    A[11] = 2
-    # A = [0,1,1]
+    # A=[0 for _ in range(12)]
+    # A[0] = 1
+    # A[1] = 5
+    # A[2] = 3
+    # A[3] = 4
+    # A[4] = 3
+    # A[5] = 4
+    # A[6] = 1
+    # A[7] = 2
+    # A[8] = 3
+    # A[9] = 4
+    # A[10] = 6
+    # A[11] = 2
+    A = [5, 8, 7, 5]
     print(solution(A))
